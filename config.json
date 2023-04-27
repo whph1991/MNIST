@@ -4,7 +4,9 @@
 
     "arch": {
         "type": "Net",
-        "args": {}
+        "args": {
+            "dropout_prob": 0.5
+        }
     },
     "data_loader": {
         "type": "MnistDataLoader",
