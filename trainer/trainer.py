@@ -12,6 +12,7 @@ class Trainer(BaseTrainer):
     def __init__(self, model, criterion, metric_ftns, optimizer, config, device,
                  data_loader, valid_data_loader=None, lr_scheduler=None, len_epoch=None):
         super().__init__(model, criterion, metric_ftns, optimizer, config)
+        self.weight_init()
         self.config = config
         self.device = device
         self.data_loader = data_loader
@@ -108,3 +109,11 @@ class Trainer(BaseTrainer):
             current = batch_idx
             total = self.len_epoch
         return base.format(current, total, 100.0 * current / total)
+    
+    def weight_init(self):
+        """
+        He initialization
+
+        """
+        if isinstance(self.model, torch.nn.Linear):
+            torch.nn.init.kaliming_uniform_(self.model.weight.data)
